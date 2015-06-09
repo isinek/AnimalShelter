@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On    # Turn on the rewriting engine
+
+    RewriteRule ^lang_change.php?lang=([A-Z]{2}+)	/lang_change.php?lang=$1
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule	^([a-z]+)/([a-z]+)	/index.php?category=$1&animal=$2	[NC]	# Handle categories and animals
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule	^([a-z]+)	/index.php?article=$1	[NC]	# Handle articles
+
+</IfModule>
