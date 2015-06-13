@@ -81,6 +81,7 @@ header .slideshow ul {
 	right: 0;
 	top: 0;
 	bottom: 0;
+	list-style-type: none;
 }
 
 header .slideshow ul li img {
@@ -143,7 +144,7 @@ section.content {
 	padding-bottom: 15px;
 }
 
-footer.row {
+footer {
 	border-top: 5px solid #222;
 	background: #147EAB;
 	-webkit-box-shadow: inset 0px 5px 40px 0px rgba(0,48,66,1);
@@ -153,6 +154,35 @@ footer.row {
 	padding: 15px;
 	z-index: 10;
 	margin: 0;
+}
+
+footer .row:first-of-type {
+	text-align: right;
+	margin-bottom: 15px;
+}
+
+footer .row:first-of-type > * {
+	text-align: left;
+}
+
+footer ul.nav-tabs {
+	float: right;
+}
+
+footer ul.nav-tabs > li > a {
+	border: none;
+	background: none;
+	color: white;
+}
+
+
+footer ul.nav-tabs > li > a:hover,
+footer ul.nav-tabs > li > a:focus,
+footer ul.nav-tabs > li.open > a:hover,
+footer ul.nav-tabs > li.open > a:focus {
+	border: none;
+	background: none;
+	color: white;
 }
 
 .section_header-new {
@@ -221,4 +251,16 @@ section.content > div.article h1 {
 
 section.content > div.article div.image-area > img {
 	max-width: 100%;
+}
+
+header.admin-header .col-sm-2 {
+	float: right;
+}
+
+section.admin-content .tab-content {
+	margin: 15px 0;
+}
+
+section.admin-content table input[type="checkbox"] {
+	width: initial;
 }

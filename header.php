@@ -1,5 +1,5 @@
 <?php
-	$sql = "SELECT ime, url FROM categories WHERE url IS NOT NULL AND jezik like '".$_SESSION['lang']."';";
+	$sql = "SELECT title, url FROM categories WHERE url IS NOT NULL AND lang like '".$_SESSION['lang']."';";
 	$result = $conn->query($sql);
 ?>
 <header>
@@ -9,20 +9,27 @@
 			<div class="col-sm-6 col-xs-2">
 				<nav class="collapse navbar-collapse">
 					<ul class="nav nav-tabs">
-						<?php if($result->num_rows > 0) : ?>
+						<?php if($result && $result->num_rows > 0) : ?>
 							<li role="presentation" class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-									<?php print $static_words['Kategorije'] ?> <span class="caret"></span>
+									<?php print $static_words['categories'] ?> <span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
 									<?php while($link = $result->fetch_assoc()) : ?>
-										<li><a href="/<?php print $link['url'] ?>"><?php print $link['ime'] ?></a></li>
+										<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
 									<?php endwhile;?>
 								</ul>
 							</li>
 						<?php endif; ?>
-						<li role="presentation"><a href="/o_nama">O nama</a></li>
-						<li role="presentation"><a href="/kontakt">Kontakt</a></li>
+						<?php
+							$sql = "SELECT title, url FROM articles WHERE url IS NOT NULL AND in_menu = 1 AND lang like '".$_SESSION['lang']."' ORDER BY menu_weight;";
+							$result = $conn->query($sql);
+						?>
+						<?php if($result && $result->num_rows > 0) : ?>
+							<?php while($link = $result->fetch_assoc()) : ?>
+								<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+							<?php endwhile; ?>
+						<?php endif; ?>
 					</ul>
 				</nav>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-navigation" aria-expanded="false">
@@ -47,23 +54,30 @@
 		<div class="col-xs-12">
 			<ul class="nav nav-tabs">
 				<?php
-					$sql = "SELECT ime, url FROM categories WHERE url IS NOT NULL AND jezik like '".$_SESSION['lang']."';";
+					$sql = "SELECT title, url FROM categories WHERE url IS NOT NULL AND lang like '".$_SESSION['lang']."';";
 					$result = $conn->query($sql);
 				?>
-				<?php if($result->num_rows > 0) : ?>
+				<?php if($result && $result->num_rows > 0) : ?>
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-							<?php print $static_words['Kategorije'] ?> <span class="caret"></span>
+							<?php print $static_words['categories'] ?> <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<?php while($link = $result->fetch_assoc()) : ?>
-								<li><a href="/<?php print $link['url'] ?>"><?php print $link['ime'] ?></a></li>
+								<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
 							<?php endwhile;?>
 						</ul>
 					</li>
 				<?php endif; ?>
-				<li role="presentation"><a href="/o_nama">O nama</a></li>
-				<li role="presentation"><a href="/kontakt">Kontakt</a></li>
+				<?php
+					$sql = "SELECT title, url FROM articles WHERE url IS NOT NULL AND in_menu = 1 AND lang like '".$_SESSION['lang']."' ORDER BY menu_weight;";
+					$result = $conn->query($sql);
+				?>
+				<?php if($result && $result->num_rows > 0) : ?>
+					<?php while($link = $result->fetch_assoc()) : ?>
+						<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+					<?php endwhile; ?>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Računalo: localhost
--- Vrijeme generiranja: Lip 09, 2015 u 12:20 PM
+-- Vrijeme generiranja: Lip 13, 2015 u 02:35 AM
 -- Verzija poslužitelja: 5.6.11-log
 -- PHP verzija: 5.4.15
 
@@ -25,15 +25,46 @@ USE `animal_shelter`;
 -- --------------------------------------------------------
 
 --
+-- Tablična struktura za tablicu `articles`
+--
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_croatian_ci NOT NULL,
+  `body` longtext COLLATE utf8_croatian_ci,
+  `lang` varchar(2) COLLATE utf8_croatian_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8_croatian_ci NOT NULL,
+  `in_menu` bit(1) NOT NULL,
+  `menu_weight` int(11) DEFAULT NULL,
+  `summary` text COLLATE utf8_croatian_ci,
+  `on_homepage` bit(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=5 ;
+
+--
+-- Izbacivanje podataka za tablicu `articles`
+--
+
+INSERT INTO `articles` (`id`, `title`, `body`, `lang`, `url`, `in_menu`, `menu_weight`, `summary`, `on_homepage`) VALUES
+(1, 'O nama', '<p>Ovo je tekst o nama.</p>', 'hr', 'o_nama', b'1', 1, NULL, b'0'),
+(2, 'About Us', '<p>This is text about us.</p>', 'en', 'about_us', b'1', 1, NULL, b'0'),
+(3, 'Kontakt', '<p>Ovo je stranica sa našim kontaktima.</p>', 'hr', 'kontakt', b'1', 2, '<p>Ovo je summary za stranicu sa našim kontaktima.</p>', b'1'),
+(4, 'Contact', '<p>This is page with contact informations.</p>', 'en', 'contact', b'1', 2, '<p>This is summary for page with contact informations.</p>', b'1');
+
+-- --------------------------------------------------------
+
+--
 -- Tablična struktura za tablicu `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ime` varchar(50) COLLATE utf8_croatian_ci NOT NULL,
-  `opis` text COLLATE utf8_croatian_ci NOT NULL,
-  `jezik` text COLLATE utf8_croatian_ci NOT NULL,
+  `title` varchar(50) COLLATE utf8_croatian_ci NOT NULL,
+  `body` longtext COLLATE utf8_croatian_ci,
+  `lang` varchar(2) COLLATE utf8_croatian_ci NOT NULL,
   `url` varchar(256) COLLATE utf8_croatian_ci DEFAULT NULL,
+  `summary` text COLLATE utf8_croatian_ci,
+  `on_homepage` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=8 ;
 
@@ -41,29 +72,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- Izbacivanje podataka za tablicu `categories`
 --
 
-INSERT INTO `categories` (`id`, `ime`, `opis`, `jezik`, `url`) VALUES
-(1, 'Psi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'psi'),
-(2, 'Mačke', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'macke'),
-(3, 'Ribice', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ribice'),
-(4, 'Ptice', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ptice'),
-(5, 'Glodavci', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'glodavci'),
-(6, 'Gmazovi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'gmazovi'),
-(7, 'Ostalo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ostalo');
-
--- --------------------------------------------------------
-
---
--- Tablična struktura za tablicu `interested_in`
---
-
-CREATE TABLE IF NOT EXISTS `interested_in` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `kat_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `kat_id` (`kat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=1 ;
+INSERT INTO `categories` (`id`, `title`, `body`, `lang`, `url`, `summary`, `on_homepage`) VALUES
+(1, 'Psi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'psi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.', b'1'),
+(2, 'Mačke', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'macke', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.', b'1'),
+(3, 'Ribice', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ribice', NULL, b'0'),
+(4, 'Ptice', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ptice', NULL, b'0'),
+(5, 'Glodavci', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'glodavci', NULL, b'0'),
+(6, 'Gmazovi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'gmazovi', NULL, b'0'),
+(7, 'Ostalo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst. Praesent a varius quam. Curabitur pellentesque velit sit amet urna pellentesque pretium. Donec faucibus leo elit, ac porta turpis fringilla congue. Vestibulum mollis nunc nec est bibendum, id luctus nulla lacinia. Phasellus velit tortor, porta ac lorem eget, vestibulum scelerisque sem. Vivamus ante dolor, posuere a blandit id, bibendum sed arcu. Morbi imperdiet ex eros, in interdum felis efficitur vitae. Ut ac cursus dui, a egestas felis. Donec eget enim sed lectus vulputate efficitur. Vivamus luctus massa a convallis accumsan. Curabitur auctor, quam at mollis pretium, est orci maximus nunc, eget condimentum erat lectus quis metus. Nulla facilisi.', 'hr', 'ostalo', NULL, b'0');
 
 -- --------------------------------------------------------
 
@@ -73,29 +89,28 @@ CREATE TABLE IF NOT EXISTS `interested_in` (
 
 CREATE TABLE IF NOT EXISTS `pets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kat_id` int(11) NOT NULL,
-  `ime` varchar(30) COLLATE utf8_croatian_ci NOT NULL,
-  `lokacija` varchar(100) COLLATE utf8_croatian_ci NOT NULL,
-  `opis` text COLLATE utf8_croatian_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `title` varchar(50) COLLATE utf8_croatian_ci NOT NULL,
+  `location` varchar(100) COLLATE utf8_croatian_ci NOT NULL,
+  `body` longtext COLLATE utf8_croatian_ci,
   `img_loc` varchar(200) COLLATE utf8_croatian_ci NOT NULL,
-  `posvojen_od` int(11) DEFAULT NULL,
   `url` varchar(256) COLLATE utf8_croatian_ci DEFAULT NULL,
-  `jezik` char(2) COLLATE utf8_croatian_ci DEFAULT NULL,
+  `lang` char(2) COLLATE utf8_croatian_ci DEFAULT NULL,
+  `summary` text COLLATE utf8_croatian_ci,
   PRIMARY KEY (`id`),
-  KEY `kat_id` (`kat_id`),
-  KEY `posvojen_od` (`posvojen_od`)
+  KEY `kat_id` (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=6 ;
 
 --
 -- Izbacivanje podataka za tablicu `pets`
 --
 
-INSERT INTO `pets` (`id`, `kat_id`, `ime`, `lokacija`, `opis`, `img_loc`, `posvojen_od`, `url`, `jezik`) VALUES
-(1, 1, 'Floki', 'Zagreb', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://petsubjectsrescue.petethevet.com/wp-content/uploads/2013/11/Guide-Dogs_025-11.jpg', NULL, 'floki', 'hr'),
-(2, 1, 'Mehi', 'Split', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://p1.pichost.me/i/32/1547786.jpg', NULL, 'mehi', 'hr'),
-(3, 1, 'Beni', 'Rijeka', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/f/fe/American_Eskimo_Dog_1.jpg', NULL, 'beni', 'hr'),
-(4, 1, 'Rita', 'Varaždin', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/4/47/American_Eskimo_Dog.jpg', NULL, 'rita', 'hr'),
-(5, 1, 'Čupko', 'Trogir', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/d/d5/Old_English_Sheep_Dog.JPG', NULL, 'cupko', 'hr');
+INSERT INTO `pets` (`id`, `category_id`, `title`, `location`, `body`, `img_loc`, `url`, `lang`, `summary`) VALUES
+(1, 1, 'Floki', 'Zagreb', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://petsubjectsrescue.petethevet.com/wp-content/uploads/2013/11/Guide-Dogs_025-11.jpg', 'floki', 'hr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.'),
+(2, 1, 'Mehi', 'Split', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://p1.pichost.me/i/32/1547786.jpg', 'mehi', 'hr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.'),
+(3, 1, 'Beni', 'Rijeka', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/f/fe/American_Eskimo_Dog_1.jpg', 'beni', 'hr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.'),
+(4, 1, 'Rita', 'Varaždin', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/4/47/American_Eskimo_Dog.jpg', 'rita', 'hr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.'),
+(5, 1, 'Čupko', 'Trogir', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae maximus arcu. Integer auctor diam nec ante eleifend gravida. Praesent eu dignissim enim. Pellentesque fermentum diam eu nisl volutpat commodo. Donec velit ante, congue convallis ex a, interdum gravida arcu. Quisque venenatis pretium ex, quis porta arcu suscipit et. Nam dapibus, elit at pellentesque efficitur, est risus rutrum ligula, at sagittis leo erat sed metus. Donec maximus, lectus a rutrum convallis, enim nulla sollicitudin purus, sit amet imperdiet diam sapien nec ex. Integer tempus nisl interdum scelerisque dictum. Phasellus ultrices, ipsum in dictum maximus, sapien metus ullamcorper lectus, eu elementum dui sem id neque. Integer id dui pulvinar, gravida sapien et, feugiat orci. Sed fringilla est eget tellus feugiat pellentesque. Integer in vulputate risus.', 'http://upload.wikimedia.org/wikipedia/commons/d/d5/Old_English_Sheep_Dog.JPG', 'cupko', 'hr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo magna eget arcu fermentum consequat. Donec nec eros mollis, auctor sapien eu, tempus ipsum. In hac habitasse platea dictumst.');
 
 -- --------------------------------------------------------
 
@@ -111,17 +126,45 @@ CREATE TABLE IF NOT EXISTS `static_words` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `word` (`word`),
   KEY `word_2` (`word`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci AUTO_INCREMENT=33 ;
 
 --
 -- Izbacivanje podataka za tablicu `static_words`
 --
 
 INSERT INTO `static_words` (`word_id`, `word`, `lang`, `id`) VALUES
-('Kategorije', 'Kategorije', 'hr', 1),
-('Kategorije', 'Categories', 'en', 2),
-('homepage_slideshow_message', 'Neka prigodna poruka', 'hr', 3),
-('homepage_slideshow_message', 'Appropriate message', 'en', 4);
+('categories', 'Kategorije', 'hr', 1),
+('categories', 'Categories', 'en', 2),
+('homepage_slideshow_message', 'Tražiš novog najboljeg prijatelja?', 'hr', 3),
+('homepage_slideshow_message', 'Looking For a New Best Friend?', 'en', 4),
+('footer_donated_by', 'Web dizajnirali i donirali Mislav Plazzeriano i Ivan Sinek', 'hr', 5),
+('footer_donated_by', 'Web designed and donated by Mislav Plazzeriano and Ivan Sinek', 'en', 6),
+('about_us', 'O nama', 'hr', 7),
+('about_us', 'About Us', 'en', 8),
+('contact', 'Kontakt', 'hr', 9),
+('contact', 'Contact', 'en', 10),
+('articles', 'Articles', 'en', 11),
+('articles', 'Članci', 'hr', 12),
+('pets', 'Pets', 'en', 13),
+('pets', 'Ljubimci', 'hr', 14),
+('users', 'Useri', 'hr', 15),
+('users', 'Users', 'en', 16),
+('static_words', 'Static words', 'en', 17),
+('static_words', 'Statične riječi', 'hr', 18),
+('title', 'Title', 'en', 19),
+('title', 'Naziv', 'hr', 20),
+('lang', 'Language', 'en', 21),
+('lang', 'Jezik', 'hr', 22),
+('on_homepage', 'On Homepage', 'en', 23),
+('on_homepage', 'Na početnoj stranici', 'hr', 24),
+('actions', 'Actions', 'en', 25),
+('actions', 'Akcije', 'hr', 26),
+('category', 'Category', 'en', 27),
+('category', 'Kategorija', 'hr', 28),
+('word_id', 'Word ID', 'en', 29),
+('word_id', 'ID Riječi', 'hr', 30),
+('word', 'Word', 'en', 31),
+('word', 'Riječ', 'hr', 32);
 
 -- --------------------------------------------------------
 
@@ -146,24 +189,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `ime`, `email`, `password`, `tel`, `adresa`) VALUES
 (1, 'Ivan Petrić', 'ivan@ivan.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0919458698', 'Olympus 52A, Zagreb'),
 (2, 'Josip Štefić', 'josip@josip.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '0928969325', 'Ričeki 22C, Babina Greda');
-
---
--- Ograničenja za izbačene tablice
---
-
---
--- Ograničenja za tablicu `interested_in`
---
-ALTER TABLE `interested_in`
-  ADD CONSTRAINT `interested_in_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `interested_in_ibfk_2` FOREIGN KEY (`kat_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ograničenja za tablicu `pets`
---
-ALTER TABLE `pets`
-  ADD CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`kat_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pets_ibfk_2` FOREIGN KEY (`posvojen_od`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

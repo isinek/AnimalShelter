@@ -1,17 +1,48 @@
-<footer class="row">
+<?php
+	$sql = "SELECT title, url FROM categories WHERE url IS NOT NULL AND lang like '".$_SESSION['lang']."';";
+	$result = $conn->query($sql);
+?>
+<footer>
 	<div class="container clearfix">
-		<div class="col-md-9">
-			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, maxime, numquam voluptatum inventore eligendi debitis iste amet neque minima vitae fuga repellat corporis magni possimus quam illum perspiciatis doloribus ullam.</div>
-			<div>Voluptas, id, aut, ea, laboriosam esse suscipit ipsa omnis dolores sint eius ex maiores excepturi illum error libero temporibus officia cupiditate minus consequuntur assumenda aliquam tempore dolorum recusandae nostrum totam?</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<nav class="collapse navbar-collapse">
+					<ul class="nav nav-tabs">
+						<?php if($result->num_rows > 0) : ?>
+							<li role="presentation" class="dropup">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+									<?php print $static_words['categories'] ?> <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<?php while($link = $result->fetch_assoc()) : ?>
+										<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+									<?php endwhile;?>
+								</ul>
+							</li>
+						<?php endif; ?>
+						<?php
+							$sql = "SELECT title, url FROM articles WHERE url IS NOT NULL AND in_menu = 1 AND lang like '".$_SESSION['lang']."' ORDER BY menu_weight;";
+							$result = $conn->query($sql);
+						?>
+						<?php if($result && $result->num_rows > 0) : ?>
+							<?php while($link = $result->fetch_assoc()) : ?>
+								<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+							<?php endwhile; ?>
+						<?php endif; ?>
+						<li role="presentation"><a href="/admin">Admin</a></li>
+					</ul>
+				</nav>
+			</div>
 		</div>
-		<div class="col-md-3">
-			<ul>
-				<li><a href="">Link 1</a></li>
-				<li><a href="">Link 2</a></li>
-				<li><a href="">Link 3</a></li>
-				<li><a href="">Link 4</a></li>
-				<li><a href="">Link 5</a></li>
-			</ul>
+		<div class="row">
+			<div class="col-md-6">
+				<span>Copyright &copy; 2015 AnimalShelter</span>
+			</div>
+			<div class="col-md-6" style="text-align: right;">
+				<span>
+					<?php print $static_words['footer_donated_by'] ?>
+				</span>
+			</div>
 		</div>
 	</div>
 </footer>
