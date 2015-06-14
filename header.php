@@ -12,11 +12,11 @@
 						<?php if($result && $result->num_rows > 0) : ?>
 							<li role="presentation" class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-									<?php print $static_words['categories'] ?> <span class="caret"></span>
+									<?php print isset($static_words['categories']) ? $static_words['categories'] : '' ?> <span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
 									<?php while($link = $result->fetch_assoc()) : ?>
-										<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+										<li><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 									<?php endwhile;?>
 								</ul>
 							</li>
@@ -27,7 +27,7 @@
 						?>
 						<?php if($result && $result->num_rows > 0) : ?>
 							<?php while($link = $result->fetch_assoc()) : ?>
-								<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+								<li role="presentation"><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 							<?php endwhile; ?>
 						<?php endif; ?>
 					</ul>
@@ -60,11 +60,11 @@
 				<?php if($result && $result->num_rows > 0) : ?>
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-							<?php print $static_words['categories'] ?> <span class="caret"></span>
+							<?php print isset($static_words['categories']) ? $static_words['categories'] : '' ?> <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<?php while($link = $result->fetch_assoc()) : ?>
-								<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+								<li><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 							<?php endwhile;?>
 						</ul>
 					</li>
@@ -75,7 +75,7 @@
 				?>
 				<?php if($result && $result->num_rows > 0) : ?>
 					<?php while($link = $result->fetch_assoc()) : ?>
-						<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+						<li role="presentation"><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 					<?php endwhile; ?>
 				<?php endif; ?>
 			</ul>
@@ -93,7 +93,7 @@
 			</ul>
 			<div class="container clearfix">
 				<div class="col-md-12">
-					<div class="slideshow-title"><?php print $static_words['homepage_slideshow_message'] ?></div>
+					<div class="slideshow-title"><?php print isset($static_words['homepage_slideshow_message']) ? $static_words['homepage_slideshow_message'] : '' ?></div>
 				</div>
 			</div>
 		</div>

@@ -1,14 +1,11 @@
 <?php
 	session_start();
-	if(!isset($_SESSION['lang'])) {
-		$_SESSION['lang'] = 'HR';
-	}
-	header('Content-Type: text/html; charset=utf8');
-
+	unset($_SESSION['privileged']);
+	$_SESSION['administration'] = true;
 	include('site_control.php');
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="<?php print isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en' ?>">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,8 +21,8 @@
 </head>
 <body>
 	<?php include('header.php'); ?>
-	<section class="content container">
-		<div class="col-md-9 <?php print $bundle ?>">
+	<section class="content container <?php print isset($bundle) ? $bundle : '' ?> <?php print isset($_SESSION['lang']) ? $_SESSION['lang'] : '' ?>">
+		<div class="col-md-9">
 			<?php include($content); ?>
 		</div>
 		<aside class="col-md-3">

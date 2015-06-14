@@ -11,11 +11,11 @@
 						<?php if($result->num_rows > 0) : ?>
 							<li role="presentation" class="dropup">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-									<?php print $static_words['categories'] ?> <span class="caret"></span>
+									<?php print isset($static_words['categories']) ? $static_words['categories'] : '' ?> <span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
 									<?php while($link = $result->fetch_assoc()) : ?>
-										<li><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+										<li><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 									<?php endwhile;?>
 								</ul>
 							</li>
@@ -26,10 +26,10 @@
 						?>
 						<?php if($result && $result->num_rows > 0) : ?>
 							<?php while($link = $result->fetch_assoc()) : ?>
-								<li role="presentation"><a href="/<?php print $link['url'] ?>"><?php print $link['title'] ?></a></li>
+								<li><a href="/<?php print $URLRewriting ? $link['url'] : 'index.php?article='.$link['url'] ?>"><?php print $link['title'] ?></a></li>
 							<?php endwhile; ?>
 						<?php endif; ?>
-						<li role="presentation"><a href="/admin">Admin</a></li>
+						<li role="presentation"><a href="/<?php print $URLRewriting ? 'admin' : 'admin.php' ?>">Admin</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -40,7 +40,7 @@
 			</div>
 			<div class="col-md-6" style="text-align: right;">
 				<span>
-					<?php print $static_words['footer_donated_by'] ?>
+					<?php print isset($static_words['footer_donated_by']) ? $static_words['footer_donated_by'] : '' ?>
 				</span>
 			</div>
 		</div>

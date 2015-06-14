@@ -5,11 +5,25 @@
 
     DirectoryIndex index.php
 
-    RewriteRule ^lang_change.php?lang=([A-Z]{2}+)	/lang_change.php?lang=$1
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^lang_change	/lang_change.php	[NC]	# Handle language change
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule	^admin	/admin.php	[NC]	# Handle articles
+	RewriteRule	^admin/create/([a-z_]+)	/admin.php?action=create&bundle=$1	[NC]	# Handle creating content
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule	^admin/edit/([a-z_]+)/([0-9]+)	/admin.php?action=edit&bundle=$1&id=$2	[NC]	# Handle editing content
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule	^admin/delete/([a-z_]+)/([0-9]+)	/admin.php?action=delete&bundle=$1&id=$2	[NC]	# Handle deleting content
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule	^admin	/admin.php	[NC]	# Handle admin pages
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
@@ -18,5 +32,4 @@
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule	^([a-z\-\_]+)	/index.php?article=$1	[NC]	# Handle articles
-
 </IfModule>

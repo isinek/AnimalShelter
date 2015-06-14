@@ -14,7 +14,7 @@
 			<p>Venn diagrami su diagrami koji pokazuju hipotetski mogući logičnan odnos između kolekcija ili grupa. Venn diagrami su osmišljeni oko 1880., a osmislio ih je John Venn. Koriste se u mnogo različitih teorija, vjerojatnosti, logici, statistici, računalnim znanostima i u pokušajima posjeta stranicama koje ne postoje.</p>
 		</div>
 	</div>
-<?php elseif($_SESSION['lang'] == 'en') : ?>
+<?php else : ?>
 	<h2 class="section_header-new">
 	    <hr class="left visible-desktop">
 		Venn of a 404
