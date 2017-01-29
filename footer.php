@@ -36,13 +36,13 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<span>Copyright &copy; 2015 AnimalShelter</span>
+				<span>Copyright &copy; 2017  AnimalShelter</span>
 			</div>
-			<div class="col-md-6" style="text-align: right;">
+			<!--<div class="col-md-6" style="text-align: right;">
 				<span>
 					<?php print isset($static_words['footer_donated_by']) ? $static_words['footer_donated_by'] : '' ?>
 				</span>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </footer>

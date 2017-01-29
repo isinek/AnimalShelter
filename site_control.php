@@ -1,5 +1,6 @@
 <?php
 	$URLRewriting = true; //SEO optimizirani URL-ovi (default -> true)
+	include('config.php');
 
 	header('Content-Type: text/html; charset=utf8');
 	//provjera je li jezik dobro upisan
@@ -7,7 +8,7 @@
 		$_SESSION['lang'] = 'hr';
 	}
 
-	$conn = new mysqli('localhost', 'root', 'root', 'animal_shelter') or die("Connection failed!");
+	$conn = new mysqli($config['sql_ip'], $config['sql_user'], $config['sql_pass'], $config['sql_scheme']) or die("Connection failed!");
 	$conn->set_charset('utf8');
 	//dohvaćanje statičkih riječi iz baze
 	$static_words = [];
@@ -25,7 +26,7 @@
 	$bundle = 'homepage';
 	unset($_SESSION['article']);
 	unset($_SESSION['animal']);
-	unset($_SESSION['admin']);
+	unset($_SESSION['administration']);
 	//provjera postoji li article param
 	if(isset($_GET['article'])) {
 		//ide se sa pretpostavkom da kategorija i članak ne postoje
